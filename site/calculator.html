@@ -44,9 +44,6 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js"></script>
-  <!-- Diol AI 24/7 Coordinator Knowledge & Widget -->
-  <script src="js/diol-ai-knowledge.js"></script>
-  <script src="js/diol-ai-widget.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased pb-20 md:pb-0" x-data="window.diolClinic">
 
@@ -86,7 +83,11 @@
             <span class="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">12 врачей</span>
           </a>
           <a href="prices.html" class="text-slate-200 hover:text-white transition-colors">Цены</a>
-          <a href="calculator.html" class="text-amber-300 hover:text-amber-200 border-b-2 border-diol-red pb-1 flex items-center gap-1.5 font-bold">
+          <a href="ai.html" class="text-emerald-600 font-extrabold flex items-center gap-2 p-2 bg-emerald-50 rounded-xl border border-emerald-200">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <i data-lucide="bot" class="w-4 h-4"></i> AI-Координатор 24/7
+            </a>
+            <a href="calculator.html" class="text-amber-300 hover:text-amber-200 border-b-2 border-diol-red pb-1 flex items-center gap-1.5 font-bold">
             <span class="w-2 h-2 rounded-full bg-red-400"></span>
             Kaspi Рассрочка
           </a>
@@ -137,6 +138,10 @@
             </a>
             <a href="prices.html" class="hover:text-diol-blue flex items-center gap-2">
               <i data-lucide="tag" class="w-4 h-4"></i> Прайс-лист (70+ цен)
+            </a>
+            <a href="ai.html" class="text-emerald-600 font-extrabold flex items-center gap-2 p-2 bg-emerald-50 rounded-xl border border-emerald-200">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <i data-lucide="bot" class="w-4 h-4"></i> AI-Координатор 24/7
             </a>
             <a href="calculator.html" class="text-diol-red flex items-center gap-2">
               <i data-lucide="calculator" class="w-4 h-4"></i> Kaspi Рассрочка 0-0-12
@@ -315,164 +320,32 @@
     </div>
   </footer>
 
-  <!-- MOBILE FLOATING ACTION BAR -->
-  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl">
-    <a href="tel:+77770337068" class="flex-1 py-2.5 bg-slate-100 text-slate-900 rounded-xl text-xs font-bold text-center">📞 Позвонить</a>
-    <a href="https://wa.me/77770337068" target="_blank" class="flex-1 py-2.5 bg-emerald-500 text-white rounded-xl text-xs font-bold text-center">WhatsApp</a>
-    <button @click="openKaspiWhatsApp()" class="flex-1 py-2.5 bg-red-600 text-white rounded-xl text-xs font-bold text-center">Рассчитать</button>
+  <!-- CLEAN COMPACT MOBILE BOTTOM BAR (4 QUICK TABS) -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200 px-3 py-2 flex items-center justify-around shadow-2xl">
+    <a href="index.html" class="flex flex-col items-center justify-center text-[10px] font-bold text-slate-600 hover:text-diol-blue py-1">
+      <i data-lucide="home" class="w-5 h-5 mb-0.5"></i>
+      <span>Главная</span>
+    </a>
+    <a href="prices.html" class="flex flex-col items-center justify-center text-[10px] font-bold text-slate-600 hover:text-diol-blue py-1">
+      <i data-lucide="tag" class="w-5 h-5 mb-0.5"></i>
+      <span>Цены</span>
+    </a>
+    <a href="ai.html" class="flex flex-col items-center justify-center text-[10px] font-extrabold text-emerald-600 py-1 relative">
+      <span class="absolute -top-1 right-2 w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+      <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 shadow-2xs mb-0.5">
+        <i data-lucide="bot" class="w-4 h-4"></i>
+      </div>
+      <span>AI-Врач</span>
+    </a>
+    <a href="https://wa.me/77770337068" target="_blank" class="flex flex-col items-center justify-center text-[10px] font-bold text-emerald-600 py-1">
+      <i data-lucide="message-circle" class="w-5 h-5 mb-0.5"></i>
+      <span>WhatsApp</span>
+    </a>
+    <button @click="openBooking('Запись с мобильного')" class="flex flex-col items-center justify-center text-[10px] font-black text-diol-red py-1">
+      <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i>
+      <span>Запись</span>
+    </button>
   </div>
 
-<!-- DIOL AI 24/7 NIGHT COORDINATOR WIDGET -->
-<div x-data="window.diolAICoordinator()" class="relative z-50">
-
-  <!-- Floating Launcher Button -->
-  <button 
-    @click="toggleChat()" 
-    class="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-50 flex items-center gap-3 px-4 py-3.5 bg-diol-blue text-white rounded-full shadow-2xl hover:bg-diol-navy transition-all duration-300 border-2 border-white/30 hover:scale-105 group"
-    aria-label="Онлайн AI-координатор Diol Stom"
-  >
-    <!-- Pulse badge -->
-    <span class="relative flex h-3.5 w-3.5">
-      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-      <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500"></span>
-    </span>
-
-    <div class="text-left hidden sm:block">
-      <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-extrabold flex items-center gap-1">
-        <span>24/7 AI-Координатор</span>
-      </div>
-      <div class="text-xs font-bold text-white">Дежурный врач онлайн</div>
-    </div>
-
-    <div class="p-1 rounded-full bg-diol-red text-white flex items-center justify-center shadow-inner">
-      <i data-lucide="bot" class="w-5 h-5" x-show="!isOpen"></i>
-      <i data-lucide="x" class="w-5 h-5" x-show="isOpen" style="display: none;"></i>
-    </div>
-  </button>
-
-  <!-- Interactive Chat Window -->
-  <div 
-    x-show="isOpen" 
-    x-transition:enter="transition ease-out duration-300 transform"
-    x-transition:enter-start="opacity-0 translate-y-8 scale-95"
-    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-    x-transition:leave="transition ease-in duration-200 transform"
-    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-    x-transition:leave-end="opacity-0 translate-y-8 scale-95"
-    class="fixed bottom-24 md:bottom-24 right-2 sm:right-6 z-50 w-[94vw] sm:w-[410px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col font-sans"
-    style="display: none;"
-  >
-    <!-- Widget Header -->
-    <div class="bg-gradient-to-r from-diol-blue to-diol-navy p-4 text-white flex items-center justify-between shadow-md">
-      <div class="flex items-center gap-3">
-        <div class="relative">
-          <div class="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20">
-            <i data-lucide="sparkles" class="w-5 h-5 text-amber-300"></i>
-          </div>
-          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-diol-blue"></span>
-        </div>
-        <div>
-          <div class="text-sm font-black flex items-center gap-1.5">
-            Diol AI Координатор
-            <span class="text-[9px] bg-diol-red px-1.5 py-0.5 rounded font-bold uppercase tracking-wider text-white">24/7</span>
-          </div>
-          <div class="text-[11px] text-slate-300">
-            Служба ночной поддержки • Без переплат
-          </div>
-        </div>
-      </div>
-      <button @click="isOpen = false" class="p-1.5 rounded-xl hover:bg-white/10 text-white/80 hover:text-white transition-colors">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-    </div>
-
-    <!-- Quick Scenario Chips -->
-    <div class="bg-slate-100 px-3 py-2 border-b border-slate-200 overflow-x-auto flex items-center gap-1.5 no-scrollbar text-xs">
-      <button @click="sendQuick('Острая боль или флюс, что делать?')" class="px-2.5 py-1 bg-white hover:bg-red-50 text-red-600 rounded-lg font-bold border border-red-200 whitespace-nowrap shadow-2xs transition-colors flex items-center gap-1">
-        ⚡ Острая боль
-      </button>
-      <button @click="sendQuick('Сколько стоит имплантация и коронки?')" class="px-2.5 py-1 bg-white hover:bg-blue-50 text-diol-blue rounded-lg font-bold border border-blue-200 whitespace-nowrap shadow-2xs transition-colors">
-        🦷 Импланты
-      </button>
-      <button @click="sendQuick('Как оформить Kaspi рассрочку 0-0-12?')" class="px-2.5 py-1 bg-white hover:bg-amber-50 text-slate-800 rounded-lg font-bold border border-amber-200 whitespace-nowrap shadow-2xs transition-colors flex items-center gap-1">
-        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Kaspi 0-0-12
-      </button>
-      <button @click="sendQuick('Какие врачи у вас принимают?')" class="px-2.5 py-1 bg-white hover:bg-slate-200 text-slate-700 rounded-lg font-bold border border-slate-200 whitespace-nowrap shadow-2xs transition-colors">
-        👨‍⚕️ Врачи (45 лет стаж)
-      </button>
-    </div>
-
-    <!-- Chat Messages Scroll Area -->
-    <div id="diol-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs sm:text-sm max-h-[360px]">
-      <template x-for="(msg, index) in messages" :key="index">
-        <div :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
-          <div 
-            :class="msg.role === 'user' 
-              ? 'bg-diol-blue text-white rounded-2xl rounded-tr-xs p-3 max-w-[85%] shadow-sm' 
-              : 'bg-white text-slate-800 rounded-2xl rounded-tl-xs p-3.5 max-w-[90%] shadow-sm border border-slate-200 leading-relaxed whitespace-pre-wrap'"
-          >
-            <!-- Content -->
-            <div x-html="msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')"></div>
-            
-            <div class="text-[10px] mt-1 text-right" :class="msg.role === 'user' ? 'text-white/70' : 'text-slate-400'" x-text="msg.time"></div>
-          </div>
-        </div>
-      </template>
-
-      <!-- Thinking Indicator -->
-      <div x-show="isThinking" class="flex items-center gap-2 text-slate-500 text-xs p-2 bg-white rounded-xl border border-slate-200 w-fit">
-        <div class="flex space-x-1">
-          <div class="w-1.5 h-1.5 bg-diol-blue rounded-full animate-bounce"></div>
-          <div class="w-1.5 h-1.5 bg-diol-blue rounded-full animate-bounce [animation-delay:0.2s]"></div>
-          <div class="w-1.5 h-1.5 bg-diol-blue rounded-full animate-bounce [animation-delay:0.4s]"></div>
-        </div>
-        <span>Анализирую медицинскую базу...</span>
-      </div>
-    </div>
-
-    <!-- Lead Capture Bar: Direct 1-Click WhatsApp Booking -->
-    <div class="bg-white p-3 border-t border-slate-200">
-      <div class="text-[11px] font-bold text-slate-600 mb-1.5 flex items-center justify-between">
-        <span>Зафиксировать скидку и время в WhatsApp:</span>
-        <span class="text-emerald-600 font-extrabold">Бесплатный осмотр</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <input 
-          type="tel" 
-          x-model="patientPhone" 
-          placeholder="+7 (7XX) XXX-XX-XX" 
-          class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-diol-blue font-medium bg-slate-50"
-        >
-        <button 
-          @click="submitLeadToWhatsApp()" 
-          class="px-3.5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-sm shrink-0"
-        >
-          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-          <span>Записаться</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Message Input Bar -->
-    <form @submit.prevent="sendMessage()" class="p-3 bg-slate-100 border-t border-slate-200 flex items-center gap-2">
-      <input 
-        type="text" 
-        x-model="inputMessage" 
-        placeholder="Опишите симптом или спросите о цене..." 
-        class="flex-1 px-3.5 py-2.5 text-xs bg-white rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-diol-blue font-normal"
-        :disabled="isThinking"
-      >
-      <button 
-        type="submit" 
-        class="p-2.5 bg-diol-red hover:bg-diol-darkred text-white rounded-xl transition-all disabled:opacity-50 shrink-0 shadow-sm"
-        :disabled="isThinking || !inputMessage.trim()"
-      >
-        <i data-lucide="send" class="w-4 h-4"></i>
-      </button>
-    </form>
-
-  </div>
-</div>
-
-</body>
+  </body>
 </html>
