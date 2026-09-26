@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Цены — Diol Stom</title>
+  <meta name="description" content="Цены на стоматологические услуги в клинике Diol Stom (Алматы): терапия, хирургия, имплантация DIO, Bredent, Straumann, ортопедия, ортодонтия, детская терапия, костная пластика, гнатология, рентгенология Morita, ЛОР.">
+  <link rel="icon" type="image/png" href="assets/diol-stom-favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/diol-stom-favicon.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            diol: {
+              blue: '#27348b',
+              navy: '#1d266b',
+              red: '#ea2127',
+              darkred: '#cc181e',
+            },
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            kaspi: '#f14635',
+            twogis: '#2b9f40'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased pb-20 md:pb-0" x-data="window.diolClinic">
+
+  <!-- TOP BAR -->
+  <header class="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Фиксированные цены без скрытых платежей • С 1997 года
+        </span>
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <span class="text-slate-300">📍 ул. Тимирязева, 87 (уг. Жарокова)</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://go.2gis.com/Iq8FQ" target="_blank" class="text-amber-400 font-bold hover:underline">★★★★★ 5.0 в 2ГИС</a>
+        <a href="tel:+77770337068" class="font-bold text-white">📞 +7 (777) 033-70-68</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="sticky top-0 z-40 bg-diol-blue shadow-lg border-b border-white/10 transition-all duration-300" x-data="{ mobileMenu: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo (White on Blue Background) -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <img src="assets/diol-stom-official-logo.png" alt="Diol Stom — Стоматологическая клиника полного цикла" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105">
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-bold text-white">
+          <a href="index.html" class="text-slate-200 hover:text-white transition-colors">Главная</a>
+          <a href="services.html" class="text-slate-200 hover:text-white transition-colors">Услуги</a>
+          <a href="doctors.html" class="text-slate-200 hover:text-white transition-colors flex items-center gap-1.5">
+            Врачи
+            <span class="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">12 врачей</span>
+          </a>
+          <a href="prices.html" class="text-white border-b-2 border-diol-red pb-1">Цены</a>
+          <a href="calculator.html" class="text-amber-300 hover:text-amber-200 transition-colors flex items-center gap-1.5 font-bold">
+            <span class="w-2 h-2 rounded-full bg-red-400"></span>
+            Kaspi Рассрочка
+          </a>
+          <a href="contacts.html" class="text-slate-200 hover:text-white transition-colors">Контакты</a>
+        </div>
+
+        <!-- Desktop CTAs -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="https://wa.me/77770337068" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            WhatsApp
+          </a>
+          <button @click="openBooking('Консультация')" class="px-5 py-2.5 bg-diol-red hover:bg-diol-darkred text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            Записаться на прием
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 text-white rounded-xl hover:bg-white/10 transition-colors" aria-label="Меню">
+          <i data-lucide="menu" class="w-6 h-6" x-show="!mobileMenu"></i>
+          <i data-lucide="x" class="w-6 h-6" x-show="mobileMenu" style="display: none;"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Modal -->
+    <div x-show="mobileMenu" x-transition.opacity class="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm" style="display: none;">
+      <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-2xl p-6 flex flex-col justify-between" @click.away="mobileMenu = false">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="bg-diol-blue p-2 rounded-xl">
+              <img src="assets/diol-stom-official-logo.png" alt="Diol Stom" class="h-8 w-auto">
+            </div>
+            <button @click="mobileMenu = false" class="p-2 text-slate-400 hover:text-slate-700">
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+          <div class="flex flex-col space-y-4 py-6 font-bold text-slate-700 text-base">
+            <a href="index.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="home" class="w-4 h-4"></i> Главная
+            </a>
+            <a href="services.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="stethoscope" class="w-4 h-4"></i> Стоматологические услуги
+            </a>
+            <a href="doctors.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4"></i> Наши врачи (12)
+            </a>
+            <a href="prices.html" class="text-diol-blue flex items-center gap-2">
+              <i data-lucide="tag" class="w-4 h-4"></i> Прайс-лист (70+ цен)
+            </a>
+            <a href="calculator.html" class="text-red-600 flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4"></i> Kaspi Рассрочка 0-0-12
+            </a>
+            <a href="contacts.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Контакты & Карта 2ГИС
+            </a>
+          </div>
+        </div>
+        <div class="space-y-3 pt-4 border-t border-slate-100">
+          <a href="tel:+77770337068" class="block w-full py-3 bg-slate-100 text-slate-800 font-bold rounded-xl text-center text-sm">
+            📞 +7 (777) 033-70-68
+          </a>
+          <button @click="openBooking('Консультация'); mobileMenu = false" class="w-full py-3 bg-diol-red text-white font-bold rounded-xl text-sm shadow-md">
+            Записаться на прием
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="py-12 md:py-16 gradient-hero-bg border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Цена за услуги</span>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 font-heading tracking-tight mt-2">
+        Цены на стоматологические услуги
+      </h1>
+      <p class="text-slate-600 text-base sm:text-lg mt-3">
+        Полный перечень процедур по официальным тарифам клиники Diol-Stom. Без скрытых наценок, анестезия и расходные материалы включены.
+      </p>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE PRICING CATALOG (SEARCH + TABS) -->
+  <section class="py-16 bg-white" x-data="{
+    searchQuery: '',
+    selectedCategory: 'all',
+    items: [
+      // ТЕРАПИЯ
+      { cat: 'therapy', name: 'Обезболивание (анестезия убистезин/септанест)', price: '3 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Профессиональная чистка зубов', price: '20-35 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Ультрозвуковая чистка Air Flow Prophylaxis', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+      { cat: 'therapy', name: 'Лечение кариеса', price: '15-20 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Лечение начального кариеса под увеличением', price: '20 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Лечение среднего кариеса под увеличением', price: '22 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Лечение глубокого кариеса под увеличением', price: '25 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Лечение корневых каналов (один канал)', price: '30 000 тенге', kaspi: '2 500 ₸/мес' },
+      { cat: 'therapy', name: 'Лечение корневых каналов (средней сложности)', price: '35 000 тенге', kaspi: '2 917 ₸/мес' },
+      { cat: 'therapy', name: 'Лечение корневых каналов (сложный случай)', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+      { cat: 'therapy', name: 'Лечение дёсен (Vector терапия) - 1 процедура', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+      { cat: 'therapy', name: 'Лечение дёсен (Vector терапия) - 2 процедура', price: '40 000 тенге', kaspi: '3 333 ₸/мес' },
+      { cat: 'therapy', name: 'Лечение дёсен (Vector терапия) - 3 процедура', price: '30 000 тенге', kaspi: '2 500 ₸/мес' },
+      { cat: 'therapy', name: 'Шинирование зубов при парадонтите', price: '4 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Распломбирование канала под культевую вкладку', price: '8 000 тенге', kaspi: '' },
+      { cat: 'therapy', name: 'Обучение гигиене полости рта', price: '15 000 тенге', kaspi: '' },
+
+      // ИМПЛАНТАЦИЯ
+      { cat: 'implant', name: 'DIO (Корея) 1 ед.', price: '135 000 тенге', kaspi: '11 250 ₸/мес' },
+      { cat: 'implant', name: 'Bredent (Германия) 1 ед.', price: '200 000 тенге', kaspi: '16 667 ₸/мес' },
+      { cat: 'implant', name: 'Straumann (Швейцария) 1 ед.', price: '400-500 000 тенге', kaspi: 'от 33 333 ₸/мес' },
+      { cat: 'implant', name: 'Синуслифтинг (без материала)', price: '150-250 000 тенге', kaspi: 'от 12 500 ₸/мес' },
+      { cat: 'implant', name: 'Костная пластика (без материала)', price: '150-250 000 тенге', kaspi: 'от 12 500 ₸/мес' },
+      { cat: 'implant', name: 'Биокомпозитный материал 1г', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+      { cat: 'implant', name: 'Мембрана', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+
+      // ХИРУРГИЯ
+      { cat: 'surgery', name: 'Операция удаление зуба (простое)', price: '10 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Операция удаление зуба (сложное)', price: '17-27 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Операция удаление зуба мудрости (сложное)', price: '22-47 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Удаление экзостозов', price: '5-9 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Лечение альвеолита (первое посещение)', price: '9 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Лечение альвеолита (последующее посещение)', price: '6 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Операция иссечение слизистой в области зуба (капюшон)', price: '12 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Резекция верхушки корня', price: '32-57 000 тенге', kaspi: '2 667 ₸/мес' },
+      { cat: 'surgery', name: 'Периостомия (вскрытие флюса)', price: '10 000 тенге', kaspi: '' },
+      { cat: 'surgery', name: 'Наложение швов', price: '10 000 тенге', kaspi: '' },
+
+      // ОРТОПЕДИЯ
+      { cat: 'ortho', name: 'Снятие оттиска', price: '3-5 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Коронка циркониевая на зубе', price: '70-90 000 тенге', kaspi: 'от 5 833 ₸/мес' },
+      { cat: 'ortho', name: 'Коронка циркониевая на импланте', price: '90-120 000 тенге', kaspi: 'от 7 500 ₸/мес' },
+      { cat: 'ortho', name: 'Виниры (1 единица)', price: '70-90 000 тенге', kaspi: 'от 5 833 ₸/мес' },
+      { cat: 'ortho', name: 'Коронка металлокерамическая', price: '25-35 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Коронка литая', price: '15-20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Коронка пластмассовая (временная) на зубах', price: '10-20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Коронка пластмассовая (временная) на импланте', price: '20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Индивидуальный абатмент циркониевый', price: '20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Индивидуальный абатмент металлический', price: '20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Индивидуальный абатмент BIOHPP', price: '20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Вкладка культевая металлическая', price: '20 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Полная анатомическая культевая вкладка из пресс-керамики', price: '70 000 тенге', kaspi: '5 833 ₸/мес' },
+      { cat: 'ortho', name: 'Каппа', price: '30 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'All-on-4', price: '300 000 тенге', kaspi: '25 000 ₸/мес' },
+      { cat: 'ortho', name: 'All-on-6', price: '350 000 тенге', kaspi: '29 167 ₸/мес' },
+      { cat: 'ortho', name: 'Протез на балке', price: '200 000 тенге', kaspi: '16 667 ₸/мес' },
+      { cat: 'ortho', name: 'Бюгельный протез', price: '120 000 тенге', kaspi: '10 000 ₸/мес' },
+      { cat: 'ortho', name: 'Металлический протез из Bio Dentaplast', price: '120 000 тенге', kaspi: '10 000 ₸/мес' },
+      { cat: 'ortho', name: 'Бюгельный протез на аттачменах', price: '150 000 тенге', kaspi: '12 500 ₸/мес' },
+      { cat: 'ortho', name: 'Микробюгельный протез из Bio Dentaplast', price: '60 000 тенге', kaspi: '5 000 ₸/мес' },
+      { cat: 'ortho', name: 'Полный съемный пластмассовый протез', price: '60-80 000 тенге', kaspi: 'от 5 000 ₸/мес' },
+      { cat: 'ortho', name: 'Микропротез', price: '30 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Фиксация коронок', price: '3 000 тенге', kaspi: '' },
+      { cat: 'ortho', name: 'Снятие коронок', price: '3-5 000 тенге', kaspi: '' },
+
+      // ОРТОДОНТИЯ
+      { cat: 'braces', name: 'Диагностика', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+      { cat: 'braces', name: 'Лечение на лигатурной металлической брекет-системе (одна челюсть)', price: '110 000 тенге', kaspi: '9 167 ₸/мес' },
+      { cat: 'braces', name: 'Лечение на самолигирующей металлической брекет-системе (одна челюсть)', price: '250 000 тенге', kaspi: '20 833 ₸/мес' },
+      { cat: 'braces', name: 'Лечение на аппарате MSE', price: '250 000 тенге', kaspi: '20 833 ₸/мес' },
+      { cat: 'braces', name: 'Лечение на аппарате Hyrex', price: '90 000 тенге', kaspi: '7 500 ₸/мес' },
+      { cat: 'braces', name: 'Лечение на пластиночных аппаратах (пластинки)', price: '50 000 тенге', kaspi: '4 167 ₸/мес' },
+      { cat: 'braces', name: 'Установка микровинта (1 единица)', price: '30-90 000 тенге', kaspi: 'от 2 500 ₸/мес' },
+      { cat: 'braces', name: 'Коррекция брекет-системы', price: '5-30 000 тенге', kaspi: '' },
+      { cat: 'braces', name: 'Потеря брекета за единицу', price: '15 000 тенге', kaspi: '' },
+
+      // ДЕТСКАЯ ТЕРАПИЯ
+      { cat: 'kids', name: 'Профессиональная гигиена полости рта (ультразвуковая чистка+ Air Flow)', price: '12 000 тенге', kaspi: '' },
+      { cat: 'kids', name: 'Поверхностный кариес молочного зуба', price: '9 500 тенге', kaspi: '' },
+      { cat: 'kids', name: 'Средний кариес молочного зуба', price: '12 500 тенге', kaspi: '' },
+      { cat: 'kids', name: 'Средне-углубленный кариес молочного зуба', price: '14 500 тенге', kaspi: '' },
+      { cat: 'kids', name: 'Пульпит молочного зуба', price: '18 500 тенге', kaspi: '' },
+      { cat: 'kids', name: 'Периодонтит молочного зуба', price: '20 500 тенге', kaspi: '' },
+      { cat: 'kids', name: 'Герметизация фиссур одного зуба', price: '16 000 тенге', kaspi: '' },
+
+      // РЕНТГЕНОЛОГИЯ
+      { cat: 'diag', name: 'КТ сегмента (3-4 зуба)', price: '4 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'КТ верхней челюсти (80*80)', price: '6 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'КТ нижней челюсти (100*50)', price: '7 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'КТ верхней и нижней челюстей', price: '10 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'КТ верхней и нижней челюсти с ВНЧС (суставом)', price: '13 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'КТ придаточных пазух носа', price: '10 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'ТРГ фас или профиль', price: '4 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'ТРГ с записью на диск', price: '5 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'Ортопантомограмма (панорамный снимок)', price: '2 500 тенге', kaspi: '' },
+      { cat: 'diag', name: 'Ортопантомограмма А4', price: '3 000 тенге', kaspi: '' },
+      { cat: 'diag', name: 'Ортопантомограмма в записью на диск', price: '3 000 тенге', kaspi: '' },
+
+      // ГНАТОЛОГИЯ
+      { cat: 'special', name: 'ЭЭГ, ЭМГ, загипсовка гипсовых моделей в артикулятор', price: '100 000 тенге', kaspi: '8 333 ₸/мес' },
+      { cat: 'special', name: 'Сплинт (стабилизирующая каппа) фрезерованный', price: '120 000 тенге', kaspi: '10 000 ₸/мес' },
+      { cat: 'special', name: 'Сплинт отжимной', price: '120 000 тенге', kaspi: '10 000 ₸/мес' },
+      { cat: 'special', name: 'Лечение импульсными токами', price: '5 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Починка сплинта', price: '15-40 000 тенге', kaspi: '' },
+
+      // ЛОР
+      { cat: 'special', name: 'Осмотр', price: '6 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Промывание носа методом перемещения', price: '3 500 тенге', kaspi: '' },
+      { cat: 'special', name: 'Узол терапия', price: '3 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Промывание небных миндалин', price: '5 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Продувание слуховых труб по политцеру', price: '2 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Пневмомассаж барабанных перепонок', price: '3 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Смазывание слизистой: (нос, ухо, горло)', price: '1 500 тенге', kaspi: '' },
+      { cat: 'special', name: 'Турунда в ухо, нос', price: '1 500 тенге', kaspi: '' },
+      { cat: 'special', name: 'Орошение носа и горла', price: '1 500 тенге', kaspi: '' },
+      { cat: 'special', name: 'Прокол гайморовой пазухи носа', price: '6 000 тенге', kaspi: '' },
+      { cat: 'special', name: 'Катетеризация слуховых труб', price: '5 000 тенге', kaspi: '' }
+    ],
+
+    get filteredItems() {
+      return this.items.filter(item => {
+        const matchesCategory = this.selectedCategory === 'all' || item.cat === this.selectedCategory;
+        const matchesSearch = item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+    }
+  }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Search and Filter Bar -->
+      <div class="max-w-2xl mx-auto mb-8">
+        <div class="relative">
+          <input type="text" x-model="searchQuery" placeholder="Быстрый поиск процедуры (например: имплант, чистка, снимок, кариес)..." class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-300 bg-white focus:ring-2 focus:ring-brand-500 text-sm font-medium shadow-sm">
+          <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 top-3.5"></i>
+        </div>
+      </div>
+
+      <!-- Categories Pills -->
+      <div class="flex items-center justify-center gap-2 flex-wrap mb-10">
+        <button @click="selectedCategory = 'all'" :class="selectedCategory === 'all' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Все услуги
+        </button>
+        <button @click="selectedCategory = 'implant'" :class="selectedCategory === 'implant' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Имплантация
+        </button>
+        <button @click="selectedCategory = 'ortho'" :class="selectedCategory === 'ortho' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Ортопедия & Коронки
+        </button>
+        <button @click="selectedCategory = 'braces'" :class="selectedCategory === 'braces' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Ортодонтия & Брекеты
+        </button>
+        <button @click="selectedCategory = 'diag'" :class="selectedCategory === 'diag' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Рентгенология & КТ
+        </button>
+        <button @click="selectedCategory = 'therapy'" :class="selectedCategory === 'therapy' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Терапия
+        </button>
+        <button @click="selectedCategory = 'surgery'" :class="selectedCategory === 'surgery' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Хирургия
+        </button>
+        <button @click="selectedCategory = 'kids'" :class="selectedCategory === 'kids' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Детская терапия
+        </button>
+        <button @click="selectedCategory = 'special'" :class="selectedCategory === 'special' ? 'bg-brand-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          Гнатология & ЛОР
+        </button>
+      </div>
+
+      <!-- Price Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <template x-for="item in filteredItems" :key="item.name">
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between hover:border-brand-500 hover:shadow-md transition-all">
+            <div>
+              <h4 class="text-sm font-bold text-slate-900 leading-snug mb-3" x-text="item.name"></h4>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-end justify-between gap-3">
+              <div>
+                <div class="text-xs text-slate-400 font-semibold">Стоимость:</div>
+                <div class="text-lg font-black text-slate-900 font-heading" x-text="item.price"></div>
+                <template x-if="item.kaspi">
+                  <div class="text-[11px] text-red-500 font-bold" x-text="`Kaspi: от ${item.kaspi}`"></div>
+                </template>
+              </div>
+              <button @click="openBooking(item.name)" class="px-3.5 py-2 bg-brand-50 hover:bg-brand-600 text-brand-700 hover:text-white rounded-xl text-xs font-bold transition-all">
+                Записаться
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <div x-show="filteredItems.length === 0" class="text-center py-16 text-slate-400 text-sm">
+        Ничего не найдено по запросу. Попробуйте изменить ключевое слово.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-slate-400 text-xs py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 1997–2026 ТОО «Diol Stom». г. Алматы, ул. Тимирязева, 87.</div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-white">Главная</a>
+        <a href="services.html" class="hover:text-white">Услуги</a>
+        <a href="doctors.html" class="hover:text-white">Врачи</a>
+        <a href="calculator.html" class="hover:text-white">Kaspi 0-0-12</a>
+        <a href="contacts.html" class="hover:text-white">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE FLOATING ACTION BAR -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl">
+    <a href="tel:+77770337068" class="flex-1 py-2.5 bg-slate-100 text-slate-900 rounded-xl text-xs font-bold text-center">📞 Позвонить</a>
+    <a href="https://wa.me/77770337068" target="_blank" class="flex-1 py-2.5 bg-emerald-500 text-white rounded-xl text-xs font-bold text-center">WhatsApp</a>
+    <button @click="openBooking('Запись')" class="flex-1 py-2.5 bg-brand-600 text-white rounded-xl text-xs font-bold text-center">Записаться</button>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div x-show="modalOpen" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" style="display: none;">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200" @click.away="closeBooking()">
+      <button @click="closeBooking()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold">✕</button>
+      <div class="mb-5">
+        <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Онлайн-запись</span>
+        <h3 class="text-2xl font-black text-slate-900 font-heading">Запись на прием в Diol-Stom</h3>
+      </div>
+      <form @submit="submitBooking($event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Процедура:</label>
+          <input type="text" x-model="modalService" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold bg-slate-50" readonly>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Ваше имя:</label>
+          <input type="text" required x-model="patientName" placeholder="Имя пациента" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Номер телефона (WhatsApp):</label>
+          <input type="tel" required x-model="patientPhone" placeholder="+7 (7XX) XXX-XX-XX" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-black text-sm">
+          Подтвердить запись через WhatsApp →
+        </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

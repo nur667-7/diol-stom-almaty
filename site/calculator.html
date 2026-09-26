@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Калькулятор Kaspi 0-0-12 и 0-0-24 — Diol Stom</title>
+  <meta name="description" content="Рассчитайте ежемесячный платеж без процентов и переплат по рассрочке Kaspi.kz в стоматологии Diol Stom (Алматы). Имплантация, брекеты, виниры в рассрочку до 24 месяцев.">
+  <link rel="icon" type="image/png" href="assets/diol-stom-favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/diol-stom-favicon.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            diol: {
+              blue: '#27348b',
+              navy: '#1d266b',
+              red: '#ea2127',
+              darkred: '#cc181e',
+            },
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            kaspi: '#f14635',
+            twogis: '#2b9f40'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased pb-20 md:pb-0" x-data="window.diolClinic">
+
+  <!-- TOP BAR -->
+  <header class="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="flex items-center gap-1.5 text-red-400 font-bold">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+          Официальный партнер Kaspi.kz с 1997 года • Алматы
+        </span>
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <span class="text-slate-300">📍 ул. Тимирязева, 87 (уг. Жарокова)</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="tel:+77770337068" class="font-bold text-white">📞 +7 (777) 033-70-68</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="sticky top-0 z-40 bg-diol-blue shadow-lg border-b border-white/10 transition-all duration-300" x-data="{ mobileMenu: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo (White on Blue Background) -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <img src="assets/diol-stom-official-logo.png" alt="Diol Stom — Стоматологическая клиника полного цикла" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105">
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-bold text-white">
+          <a href="index.html" class="text-slate-200 hover:text-white transition-colors">Главная</a>
+          <a href="services.html" class="text-slate-200 hover:text-white transition-colors">Услуги</a>
+          <a href="doctors.html" class="text-slate-200 hover:text-white transition-colors flex items-center gap-1.5">
+            Врачи
+            <span class="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">12 врачей</span>
+          </a>
+          <a href="prices.html" class="text-slate-200 hover:text-white transition-colors">Цены</a>
+          <a href="calculator.html" class="text-amber-300 hover:text-amber-200 border-b-2 border-diol-red pb-1 flex items-center gap-1.5 font-bold">
+            <span class="w-2 h-2 rounded-full bg-red-400"></span>
+            Kaspi Рассрочка
+          </a>
+          <a href="contacts.html" class="text-slate-200 hover:text-white transition-colors">Контакты</a>
+        </div>
+
+        <!-- Desktop CTAs -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="https://wa.me/77770337068" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            WhatsApp
+          </a>
+          <button @click="openBooking('Консультация')" class="px-5 py-2.5 bg-diol-red hover:bg-diol-darkred text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            Записаться на прием
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 text-white rounded-xl hover:bg-white/10 transition-colors" aria-label="Меню">
+          <i data-lucide="menu" class="w-6 h-6" x-show="!mobileMenu"></i>
+          <i data-lucide="x" class="w-6 h-6" x-show="mobileMenu" style="display: none;"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Modal -->
+    <div x-show="mobileMenu" x-transition.opacity class="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm" style="display: none;">
+      <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-2xl p-6 flex flex-col justify-between" @click.away="mobileMenu = false">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="bg-diol-blue p-2 rounded-xl">
+              <img src="assets/diol-stom-official-logo.png" alt="Diol Stom" class="h-8 w-auto">
+            </div>
+            <button @click="mobileMenu = false" class="p-2 text-slate-400 hover:text-slate-700">
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+          <div class="flex flex-col space-y-4 py-6 font-bold text-slate-700 text-base">
+            <a href="index.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="home" class="w-4 h-4"></i> Главная
+            </a>
+            <a href="services.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="stethoscope" class="w-4 h-4"></i> Стоматологические услуги
+            </a>
+            <a href="doctors.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4"></i> Наши врачи (12)
+            </a>
+            <a href="prices.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="tag" class="w-4 h-4"></i> Прайс-лист (70+ цен)
+            </a>
+            <a href="calculator.html" class="text-diol-red flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4"></i> Kaspi Рассрочка 0-0-12
+            </a>
+            <a href="contacts.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Контакты & Карта 2ГИС
+            </a>
+          </div>
+        </div>
+        <div class="space-y-3 pt-4 border-t border-slate-100">
+          <a href="tel:+77770337068" class="block w-full py-3 bg-slate-100 text-slate-800 font-bold rounded-xl text-center text-sm">
+            📞 +7 (777) 033-70-68
+          </a>
+          <button @click="openBooking('Консультация'); mobileMenu = false" class="w-full py-3 bg-diol-red text-white font-bold rounded-xl text-sm shadow-md">
+            Записаться на прием
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CALCULATOR SECTION -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 text-xs font-black uppercase tracking-wider mb-2">
+          <span>💳</span> 0% переплат • 0 ₸ первоначальный взнос
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 font-heading tracking-tight">
+          Калькулятор Kaspi Рассрочки
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base mt-3 max-w-xl mx-auto">
+          Рассчитайте ежемесячный платеж за импланты, коронки, виниры или брекеты. Оформление за 1 минуту по QR-коду на ресепшене.
+        </p>
+      </div>
+
+      <!-- Main Box -->
+      <div class="bg-white rounded-3xl border-2 border-red-100 shadow-2xl p-6 sm:p-10">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Controls (7 cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <!-- Step 1: Select Service -->
+            <div>
+              <label class="block text-xs font-black uppercase tracking-wider text-slate-700 mb-2">
+                1. Выберите стоматологическую процедуру:
+              </label>
+              <select x-model.number="kaspiService" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 bg-white font-bold text-sm focus:ring-2 focus:ring-red-500">
+                <option value="135000">Имплант DIO (Корея) «под ключ» — 135 000 ₸</option>
+                <option value="200000" selected>Имплант Bredent (Германия) «под ключ» — 200 000 ₸</option>
+                <option value="450000">Имплант Straumann SLActive (Швейцария) — 450 000 ₸</option>
+                <option value="80000">Циркониевая коронка ZrO2 — 80 000 ₸</option>
+                <option value="80000">Керамический винир E.max — 80 000 ₸</option>
+                <option value="30000">Металлокерамическая коронка — 30 000 ₸</option>
+                <option value="110000">Брекеты металлические (1 челюсть) — 110 000 ₸</option>
+                <option value="250000">Самолигирующие брекеты (1 челюсть) — 250 000 ₸</option>
+                <option value="250000">Аппарат MSE (расширение челюсти) — 250 000 ₸</option>
+                <option value="300000">Тотальный протез All-on-4 — 300 000 ₸</option>
+                <option value="120000">Сплинт суставной (гнатология) — 120 000 ₸</option>
+                <option value="50000">Vector-терапия десен — 50 000 ₸</option>
+              </select>
+            </div>
+
+            <!-- Step 2: Quantity -->
+            <div>
+              <label class="block text-xs font-black uppercase tracking-wider text-slate-700 mb-2">
+                2. Количество единиц:
+              </label>
+              <div class="flex items-center gap-3">
+                <button @click="if (kaspiQty > 1) kaspiQty--" class="w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 font-black text-xl text-slate-700 flex items-center justify-center">
+                  -
+                </button>
+                <input type="number" x-model.number="kaspiQty" min="1" max="14" readonly class="w-20 h-12 text-center font-black text-xl bg-white border border-slate-300 rounded-xl">
+                <button @click="if (kaspiQty < 14) kaspiQty++" class="w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 font-black text-xl text-slate-700 flex items-center justify-center">
+                  +
+                </button>
+                <span class="text-xs text-slate-500 font-bold">единиц</span>
+              </div>
+            </div>
+
+            <!-- Step 3: Months Term -->
+            <div>
+              <label class="block text-xs font-black uppercase tracking-wider text-slate-700 mb-2">
+                3. Период рассрочки Kaspi:
+              </label>
+              <div class="grid grid-cols-3 gap-3">
+                <button @click="kaspiMonths = 3" :class="kaspiMonths === 3 ? 'bg-red-500 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="py-3 px-2 rounded-xl text-xs font-bold text-center transition-all">
+                  <div class="text-sm font-black">3 месяца</div>
+                  <div class="text-[10px] opacity-80">Kaspi Red</div>
+                </button>
+                <button @click="kaspiMonths = 12" :class="kaspiMonths === 12 ? 'bg-red-500 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="py-3 px-2 rounded-xl text-xs font-bold text-center transition-all">
+                  <div class="text-sm font-black">12 месяцев</div>
+                  <div class="text-[10px] opacity-90">0-0-12 (Популярно)</div>
+                </button>
+                <button @click="kaspiMonths = 24" :class="kaspiMonths === 24 ? 'bg-red-500 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="py-3 px-2 rounded-xl text-xs font-bold text-center transition-all">
+                  <div class="text-sm font-black">24 месяца</div>
+                  <div class="text-[10px] opacity-80">Kaspi Жұма</div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Output (5 cols) -->
+          <div class="lg:col-span-5 bg-slate-950 text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-red-500/10 rounded-full blur-2xl"></div>
+
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider" x-text="`Kaspi 0-0-${kaspiMonths}`"></span>
+                <img src="assets/kaspi.svg" alt="Kaspi" class="w-8 h-8">
+              </div>
+
+              <div class="text-xs text-slate-400 font-medium">Общая стоимость лечения:</div>
+              <div class="text-2xl sm:text-3xl font-black text-white my-1 font-heading" x-text="formatMoney(totalKaspiSum)"></div>
+
+              <div class="mt-4 pt-4 border-t border-slate-800">
+                <div class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Ежемесячный платеж:</div>
+                <div class="text-3xl sm:text-4xl font-black text-emerald-400 my-1 font-heading" x-text="`${formatMoney(monthlyKaspiPayment)} / мес`"></div>
+                <div class="text-xs text-slate-400" x-text="`на ${kaspiMonths} мес. без процентов и переплат`"></div>
+              </div>
+
+              <div class="mt-4 text-[11px] text-slate-400 bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1">
+                <div>✓ <strong>Первый взнос 0 ₸:</strong> начинайте лечение сегодня.</div>
+                <div>✓ <strong>Оформление 2 минуты:</strong> прямо в клинике по QR.</div>
+              </div>
+            </div>
+
+            <button @click="openKaspiWhatsApp()" class="mt-6 w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+              Зафиксировать условия в WhatsApp
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- FAQ about Kaspi -->
+      <div class="mt-16 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200">
+        <h3 class="text-xl font-black text-slate-900 font-heading mb-4">Частые вопросы об оплате через Kaspi:</h3>
+        <div class="space-y-4 text-xs sm:text-sm text-slate-700">
+          <div>
+            <strong>1. Нужны ли справки о доходах или пенсионные отчисления?</strong>
+            <p class="text-slate-500 mt-0.5">Нет. Оформление происходит мгновенно в приложении Kaspi.kz по вашему одобренному лимиту рассрочки.</p>
+          </div>
+          <div>
+            <strong>2. Есть ли скрытая страховка или комиссия?</strong>
+            <p class="text-slate-500 mt-0.5">Нет. Вы оплачиваете ровно ту сумму, которая указана в прайс-листе клиники, разделенную на количество месяцев.</p>
+          </div>
+          <div>
+            <strong>3. Можно ли оплатить частично наличными, а остаток в рассрочку?</strong>
+            <p class="text-slate-500 mt-0.5">Да. Вы можете оплатить любую удобную часть наличными или Kaspi Gold, а остальную сумму оформить в рассрочку 0-0-12.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-slate-400 text-xs py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 1997–2026 ТОО «Diol Stom». г. Алматы, ул. Тимирязева, 87.</div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-white">Главная</a>
+        <a href="services.html" class="hover:text-white">Услуги</a>
+        <a href="doctors.html" class="hover:text-white">Врачи</a>
+        <a href="prices.html" class="hover:text-white">Цены</a>
+        <a href="contacts.html" class="hover:text-white">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE FLOATING ACTION BAR -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl">
+    <a href="tel:+77770337068" class="flex-1 py-2.5 bg-slate-100 text-slate-900 rounded-xl text-xs font-bold text-center">📞 Позвонить</a>
+    <a href="https://wa.me/77770337068" target="_blank" class="flex-1 py-2.5 bg-emerald-500 text-white rounded-xl text-xs font-bold text-center">WhatsApp</a>
+    <button @click="openKaspiWhatsApp()" class="flex-1 py-2.5 bg-red-600 text-white rounded-xl text-xs font-bold text-center">Рассчитать</button>
+  </div>
+
+</body>
+</html>

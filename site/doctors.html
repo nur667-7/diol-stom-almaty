@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Врачи — Diol Stom</title>
+  <meta name="description" content="Врачи стоматологической клиники Diol Stom в Алматы. Профессионалы с опытом работы до 45 лет: Хасенова Б.Д., Касенов Д.М., Подольная Н.В., Зоточкина Т.И., Тілеулес Н.А., Калиева А.Ж., Юрьева О.М., Сейткали А.С.">
+  <link rel="icon" type="image/png" href="assets/diol-stom-favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/diol-stom-favicon.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            diol: {
+              blue: '#27348b',
+              navy: '#1d266b',
+              red: '#ea2127',
+              darkred: '#cc181e',
+            },
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            kaspi: '#f14635',
+            twogis: '#2b9f40'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased pb-20 md:pb-0" x-data="window.diolClinic">
+
+  <!-- TOP BAR -->
+  <header class="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Врачи со стажем до 45 лет • С 1997 года в Алматы
+        </span>
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <span class="text-slate-300">📍 ул. Тимирязева, 87 (уг. Жарокова)</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://go.2gis.com/Iq8FQ" target="_blank" class="text-amber-400 font-bold hover:underline">
+          ★★★★★ 5.0 в 2ГИС
+        </a>
+        <a href="tel:+77770337068" class="font-bold text-white">📞 +7 (777) 033-70-68</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="sticky top-0 z-40 bg-diol-blue shadow-lg border-b border-white/10 transition-all duration-300" x-data="{ mobileMenu: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo (White on Blue Background) -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <img src="assets/diol-stom-official-logo.png" alt="Diol Stom — Стоматологическая клиника полного цикла" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105">
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-bold text-white">
+          <a href="index.html" class="text-slate-200 hover:text-white transition-colors">Главная</a>
+          <a href="services.html" class="text-slate-200 hover:text-white transition-colors">Услуги</a>
+          <a href="doctors.html" class="text-white border-b-2 border-diol-red pb-1 flex items-center gap-1.5">
+            Врачи
+            <span class="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">12 врачей</span>
+          </a>
+          <a href="prices.html" class="text-slate-200 hover:text-white transition-colors">Цены</a>
+          <a href="calculator.html" class="text-amber-300 hover:text-amber-200 transition-colors flex items-center gap-1.5 font-bold">
+            <span class="w-2 h-2 rounded-full bg-red-400"></span>
+            Kaspi Рассрочка
+          </a>
+          <a href="contacts.html" class="text-slate-200 hover:text-white transition-colors">Контакты</a>
+        </div>
+
+        <!-- Desktop CTAs -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="https://wa.me/77770337068" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            WhatsApp
+          </a>
+          <button @click="openBooking('Консультация')" class="px-5 py-2.5 bg-diol-red hover:bg-diol-darkred text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            Записаться на прием
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 text-white rounded-xl hover:bg-white/10 transition-colors" aria-label="Меню">
+          <i data-lucide="menu" class="w-6 h-6" x-show="!mobileMenu"></i>
+          <i data-lucide="x" class="w-6 h-6" x-show="mobileMenu" style="display: none;"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Modal -->
+    <div x-show="mobileMenu" x-transition.opacity class="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm" style="display: none;">
+      <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-2xl p-6 flex flex-col justify-between" @click.away="mobileMenu = false">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="bg-diol-blue p-2 rounded-xl">
+              <img src="assets/diol-stom-official-logo.png" alt="Diol Stom" class="h-8 w-auto">
+            </div>
+            <button @click="mobileMenu = false" class="p-2 text-slate-400 hover:text-slate-700">
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+          <div class="flex flex-col space-y-4 py-6 font-bold text-slate-700 text-base">
+            <a href="index.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="home" class="w-4 h-4"></i> Главная
+            </a>
+            <a href="services.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="stethoscope" class="w-4 h-4"></i> Стоматологические услуги
+            </a>
+            <a href="doctors.html" class="text-diol-blue flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4"></i> Наши врачи (12)
+            </a>
+            <a href="prices.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="tag" class="w-4 h-4"></i> Прайс-лист (70+ цен)
+            </a>
+            <a href="calculator.html" class="text-red-600 flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4"></i> Kaspi Рассрочка 0-0-12
+            </a>
+            <a href="contacts.html" class="hover:text-diol-blue flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Контакты & Карта 2ГИС
+            </a>
+          </div>
+        </div>
+        <div class="space-y-3 pt-4 border-t border-slate-100">
+          <a href="tel:+77770337068" class="block w-full py-3 bg-slate-100 text-slate-800 font-bold rounded-xl text-center text-sm">
+            📞 +7 (777) 033-70-68
+          </a>
+          <button @click="openBooking('Консультация'); mobileMenu = false" class="w-full py-3 bg-diol-red text-white font-bold rounded-xl text-sm shadow-md">
+            Записаться на прием
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="py-12 md:py-16 gradient-hero-bg border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Клинический состав</span>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 font-heading tracking-tight mt-2">
+        Наши врачи — профессионалы с опытом
+      </h1>
+      <p class="text-slate-600 text-base sm:text-lg mt-3">
+        Признанные преподаватели КазНМУ, хирурги с многолетним стажем в стационарах ЧЛХ и международными стажировками (США, Германия, Италия).
+      </p>
+    </div>
+  </section>
+
+  <!-- DOCTORS GRID -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- 1. Хасенова Бибигуль Джолболдиевна -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/khasenova.jpg" alt="Хасенова Бибигуль Джолболдиевна" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: 45 лет • КазНМУ
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Хасенова Бибигуль Джолболдиевна</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Врач-стоматолог ортопед высшей категории</div>
+            <p class="text-xs text-slate-600 leading-relaxed space-y-2">
+              Проходила усовершенствование и повышение квалификации, исследовательские работы опубликованы в Казахстане и зарубежных изданиях. Преподавала 5 лет в медицинском университете, 11 лет в институте усовершенствования врачей. 21 год работает в «Диол Стом». Владеет всеми методами ортопедического лечения дефектов и деформаций зубочелюстной системы, особенно при полном отсутствии зубов.
+            </p>
+          </div>
+          <button @click="openBooking('Ортопед Хасенова Б.Д.', 'Хасенова Бибигуль Джолболдиевна')" class="mt-6 w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+            Записаться к Хасеновой Б.Д.
+          </button>
+        </div>
+
+        <!-- 2. Касенов Диас Муратович -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/kasenov.jpg" alt="Касенов Диас Муратович" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-brand-600 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: 15 лет (7 лет в ЧЛХ)
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Касенов Диас Муратович</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Челюстно-лицевой хирург, хирург-имплантолог</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Опыт работы 15 лет, 7 из них работал в отделении челюстно-лицевой хирургии. Проходил многочисленные обучения за рубежом, в том числе в Италии, Португалии, Англии, Германии, США. Специалист по синус-лифтингу, расщеплению гребня, All-on-4 и сложным реконструкциям костной ткани.
+            </p>
+          </div>
+          <button @click="openBooking('Хирург Касенов Д.М.', 'Касенов Диас Муратович')" class="mt-6 w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+            Записаться к Касенову Д.М.
+          </button>
+        </div>
+
+        <!-- 3. Подольная Наталья Владимировна -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/podolnaya.jpg" alt="Подольная Наталья Владимировна" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: более 30 лет
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Подольная Наталья Владимировна</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Врач-стоматолог терапевт</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Опыт работы более 30 лет. Регулярные курсы усовершенствования каждые 5 лет. Экспертное перелечивание труднопроходимых корневых каналов, работа с операционным микроскопом, сохранение разрушенных зубов от удаления.
+            </p>
+          </div>
+          <button @click="openBooking('Терапевт Подольная Н.В.', 'Подольная Наталья Владимировна')" class="mt-6 w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+            Записаться к Подольной Н.В.
+          </button>
+        </div>
+
+        <!-- 4. Зоточкина Татьяна Ивановна -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/zatochkina.jpg" alt="Зоточкина Татьяна Ивановна" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: более 30 лет
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Зоточкина Татьяна Ивановна</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Врач-стоматолог терапевт</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Стаж более 30 лет. Художественная реставрация зубов современными нанокомпозитами. Консервативное лечение заболеваний пародонта с применением немецкого ультразвукового аппарата Vector без повреждения мягких тканей.
+            </p>
+          </div>
+          <button @click="openBooking('Терапевт Зоточкина Т.И.', 'Зоточкина Татьяна Ивановна')" class="mt-6 w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+            Записаться к Зоточкиной Т.И.
+          </button>
+        </div>
+
+        <!-- 5. Тілеулес Нұрлыбек Алдабергенұлы -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/tleules.jpg" alt="Тілеулес Нұрлыбек Алдабергенұлы" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: 6+ лет • Гнатолог
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Тілеулес Нұрлыбек Алдабергенұлы</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Врач-стоматолог ортопед, гнатолог</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Базовый курс протезирования на имплантах, курс «Керамическая реставрация. Виниры за 2 дня», продвинутый курс по гнатологии «BMJO Concept: Brain-muscles-joint-occlusion». Лечение дисфункций височно-нижнечелюстного сустава.
+            </p>
+          </div>
+          <button @click="openBooking('Ортопед Тілеулес Н.А.', 'Тілеулес Нұрлыбек Алдабергенұлы')" class="mt-6 w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+            Записаться к Тілеулес Н.А.
+          </button>
+        </div>
+
+        <!-- 6. Калиева Алия Жаксылыковна -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/kalieva.webp" alt="Калиева Алия Жаксылыковна" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-brand-600 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: 5+ лет • Резидентура КазНМУ
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Калиева Алия Жаксылыковна</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Врач-стоматолог ортодонт</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Окончила резидентуру КазНМУ им. С.Д. Асфендиярова по ортодонтии. Обучение у ведущих ортодонтов Казахстана и РФ. Специалист по микроимплантам (абсолютная опора), коррекции сменного прикуса, аппаратам MSE и брекет-системам.
+            </p>
+          </div>
+          <button @click="openBooking('Ортодонт Калиева А.Ж.', 'Калиева Алия Жаксылыковна')" class="mt-6 w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+            Записаться к Калиевой А.Ж.
+          </button>
+        </div>
+
+        <!-- 7. Юрьева Ольга Михайловна -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/yureva.jpg" alt="Юрьева Ольга Михайловна" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: 27 лет в рентгенологии
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Юрьева Ольга Михайловна</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Рентген-лаборант, лучевая диагностика</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Стаж 27 лет. Сертификаты и повышения квалификации по лучевой диагностике, работе на 3D томографах Morita Accuitomo и панорамных аппаратах. Гарантия безупречной укладки пациента и четкого снимка без повторного облучения.
+            </p>
+          </div>
+          <button @click="openBooking('3D КТ снимок', 'Юрьева Ольга Михайловна')" class="mt-6 w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all">
+            Записаться на 3D-снимок
+          </button>
+        </div>
+
+        <!-- 8. Сейткали Акбота Сейткаликызы -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/siluet.webp" alt="Сейткали Акбота Сейткаликызы" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-purple-700 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Стаж: 9 лет • PhD candidate
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Сейткали Акбота Сейткаликызы</h3>
+            <div class="text-xs font-bold text-purple-700 mb-3">Оториноларинголог (ЛОР-врач), PhD</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Санация придаточных пазух носа методом перемещения (Кавитар, УЗОЛ) перед проведением операций открытого и закрытого синус-лифтинга. Промывание небных миндалин, лечение синуситов и ринитов.
+            </p>
+          </div>
+          <button @click="openBooking('Прием ЛОР-врача', 'Сейткали Акбота Сейткаликызы')" class="mt-6 w-full py-2.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl text-xs font-bold transition-all">
+            Записаться к ЛОР-врачу
+          </button>
+        </div>
+
+        <!-- 9. Касенов Олжас Муратович -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/kasenov_olzhas.webp" alt="Касенов Олжас Муратович" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Руководство диагностикой
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Касенов Олжас Муратович</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Заведующий рентгенологическим отделением</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Контроль качества 3D-томографии, построение 3D-реконструкций челюстно-лицевой области для хирургических шаблонов и цифрового протокола имплантации.
+            </p>
+          </div>
+          <button @click="openBooking('Рентгенологическое отделение')" class="mt-6 w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all">
+            Записаться на диагностику
+          </button>
+        </div>
+
+        <!-- 10. Супиева Александра & Шепель Александра -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/siluet.webp" alt="Детские стоматологи Diol-Stom" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-emerald-600 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Детское отделение
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Супиева А.А. & Шепель А.А.</h3>
+            <div class="text-xs font-bold text-emerald-600 mb-3">Детские врачи-стоматологи</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Опыт работы более 4-х лет. Лечение молочных и постоянных зубов у детей в игровой форме без слез и страха. Герметизация фиссур, лечение кариеса и пульпита молочных зубов.
+            </p>
+          </div>
+          <button @click="openBooking('Детский стоматолог')" class="mt-6 w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all">
+            Записать ребенка на прием
+          </button>
+        </div>
+
+        <!-- 11. Зуботехническая лаборатория -->
+        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="relative h-80 rounded-2xl overflow-hidden mb-5 bg-slate-200">
+              <img src="assets/skakov.webp" alt="Скаков Ерик Мырзабекулы" class="w-full h-full object-cover object-top">
+              <div class="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1 rounded-xl text-xs font-bold">
+                Собственная лаборатория
+              </div>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 font-heading">Скаков Ерик Мырзабекулы</h3>
+            <div class="text-xs font-bold text-brand-600 mb-3">Заведующий зуботехнической лабораторией</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Вместе с техниками Кадыровым А.К. и Абдрахмановым К.К. изготавливает прецизионные циркониевые коронки, бюгельные конструкции и протезы BioHPP прямо в здании клиники.
+            </p>
+          </div>
+          <div class="mt-6 p-2.5 bg-white rounded-xl border border-slate-200 text-center text-xs font-bold text-slate-600">
+            Изготовление коронок от 2-х дней
+          </div>
+        </div>
+
+        <!-- 12. Команда рентгенологов и медсестер -->
+        <div class="bg-gradient-to-br from-brand-900 to-slate-900 text-white rounded-3xl p-6 flex flex-col justify-between shadow-xl">
+          <div>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 border border-brand-400/30">Служба заботы о пациентах</span>
+            <h3 class="text-xl font-black mt-4 mb-2">Медицинский персонал</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Рентгенологи Лынов В.В., Фризен Н.И., Гаврилко А.Ю. Старшая медсестра Садвакасова М.Ж. и медсестра Шагалинова М.А. гарантируют 100% стерильность по международным стандартам безопасности.
+            </p>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-300 space-y-1">
+              <div>✓ Трехэтапная стерилизация инструментария</div>
+              <div>✓ Индивидуальные антиСПИД / антигепатит пакеты</div>
+              <div>✓ Полная безопасность при рентген-диагностике</div>
+            </div>
+          </div>
+          <button @click="openBooking('Консультация')" class="mt-6 w-full py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-bold transition-all">
+            Записаться на прием
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-slate-400 text-xs py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 1997–2026 ТОО «Diol Stom». г. Алматы, ул. Тимирязева, 87.</div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-white">Главная</a>
+        <a href="services.html" class="hover:text-white">Услуги</a>
+        <a href="prices.html" class="hover:text-white">Цены</a>
+        <a href="calculator.html" class="hover:text-white">Kaspi 0-0-12</a>
+        <a href="contacts.html" class="hover:text-white">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE FLOATING ACTION BAR -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl">
+    <a href="tel:+77770337068" class="flex-1 py-2.5 bg-slate-100 text-slate-900 rounded-xl text-xs font-bold text-center">📞 Позвонить</a>
+    <a href="https://wa.me/77770337068" target="_blank" class="flex-1 py-2.5 bg-emerald-500 text-white rounded-xl text-xs font-bold text-center">WhatsApp</a>
+    <button @click="openBooking('Запись')" class="flex-1 py-2.5 bg-brand-600 text-white rounded-xl text-xs font-bold text-center">Записаться</button>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div x-show="modalOpen" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" style="display: none;">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200" @click.away="closeBooking()">
+      <button @click="closeBooking()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold">✕</button>
+      <div class="mb-5">
+        <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Онлайн-запись</span>
+        <h3 class="text-2xl font-black text-slate-900 font-heading">Запись на прием в Diol-Stom</h3>
+      </div>
+      <form @submit="submitBooking($event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Специалист / Услуга:</label>
+          <input type="text" x-model="modalService" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold bg-slate-50" readonly>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Ваше имя:</label>
+          <input type="text" required x-model="patientName" placeholder="Имя пациента" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Номер телефона (WhatsApp):</label>
+          <input type="tel" required x-model="patientPhone" placeholder="+7 (7XX) XXX-XX-XX" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-black text-sm">
+          Подтвердить запись через WhatsApp →
+        </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
